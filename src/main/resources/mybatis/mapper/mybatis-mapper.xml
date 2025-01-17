@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.kaist.mapper.KaistMapper">
+	
+	<!--첫번째 Mapper -->
+	<select id="findByUserList" resultType="HashMap">
+		SELECT * FROM User WHERE userName like CONCAT('%',#{userNm},'%')
+	</select>	
+	
+	<select id="findByMyCommunity" resultType="HashMap">
+	SELECT 
+		c.id as communityId
+		,c.summary
+		,c.title 
+		,cu.userId as userId 
+		,cu.sortNo
+	    ,cu.image profileImage
+		,cu.type profileImageType
+	    ,cu.nickName
+		,c.image
+		,c.type
+	FROM Community c 
+	LEFT OUTER JOIN CommunityUser cu 
+	ON c.id = cu.communityId 
+	AND cu.userId  = #{userId}
+	</select>
+	
+	<select id="findByCommunityBoard" resultType="HashMap">
+	SELECT
+		b.id AS boardId
+		 ,b.communityId
+		 ,b.content
+		 ,b.title
+		 ,b.createdAt
+		 ,cu.nickName
+		 ,cu.userId
+		 ,cu.image AS profileImage
+		 ,cu.type AS profileType
+	FROM Board b
+			 LEFT JOIN CommunityUser cu
+					   ON b.userId = cu.userId
+					  and b.communityId = cu.communityId
+	where b.communityId = #{communityId}
+    order by b.createdAt DESC
+	</select>
+	
+	<select id="findByBoardComment"  resultType="HashMap">
+		SELECT
+			bc.id
+			 ,bc.boardId
+			 ,bc.communityId
+			 ,bc.content
+			 ,bc.createdAt
+			 ,cu.nickName
+			 ,cu.userId
+		FROM BoardComment bc
+				 LEFT JOIN CommunityUser cu
+						   ON bc.userId = cu.userId
+							   and bc.communityId = cu.communityId
+		WHERE bc.boardId =  #{boardId}
+		order by createdAt desc
+	</select>
+</mapper>

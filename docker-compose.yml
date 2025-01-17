@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: kaist1234 # 루트 비밀번호 설정
+      MYSQL_DATABASE: kaistblue # 기본 데이터베이스 설정
+      MYSQL_USER: kaistblue # 사용자 이름 설정
+      MYSQL_PASSWORD: blue1234 # 사용자 비밀번호 설정
+    ports:
+      - "3306:3306" # 외부에서 MySQL에 접근할 수 있도록 포트 3306 노출
+    volumes:
+      - mysql_data:/var/lib/mysql # 데이터 영속성 보장
+    networks:
+      - my_network
+
+volumes:
+  mysql_data:
+
+networks:
+  my_network:
+    driver: bridge
