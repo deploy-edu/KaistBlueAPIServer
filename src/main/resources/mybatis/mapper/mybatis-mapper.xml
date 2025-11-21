@@ -23,7 +23,11 @@
 	    ,cu.nickName
 		,c.image
 		,c.type
-		,c.memberCount
+		,COALESCE((
+			SELECT COUNT(*) 
+			FROM CommunityUser cu_count 
+			WHERE cu_count.communityId = c.id
+		), 0) as memberCount
 	FROM Community c 
 	LEFT OUTER JOIN CommunityUser cu 
 	ON c.id = cu.communityId 
