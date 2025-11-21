@@ -9,7 +9,7 @@ https://www.docker.com/products/docker-desktop/
 ### Run
 
 ```
-docker-compose -f docker-compose.yml up
+docker compose -f docker-compose.yml up
 ```
 
 ## API Server
