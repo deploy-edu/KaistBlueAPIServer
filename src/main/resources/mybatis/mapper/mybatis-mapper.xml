@@ -15,7 +15,10 @@
 		,c.title 
 		,cu.userId as userId 
 		,cu.sortNo
-	    ,cu.image profileImage
+	    ,CASE 
+			WHEN cu.image IS NOT NULL THEN CONCAT(IFNULL(cu.type, 'data:image/png;base64,'), TO_BASE64(cu.image))
+			ELSE NULL
+		 END AS profileImage
 		,cu.type profileImageType
 	    ,cu.nickName
 		,c.image
@@ -36,7 +39,10 @@
 		 ,b.createdAt
 		 ,cu.nickName
 		 ,cu.userId
-		 ,cu.image AS profileImage
+		 ,CASE 
+			WHEN cu.image IS NOT NULL THEN CONCAT(IFNULL(cu.type, 'data:image/png;base64,'), TO_BASE64(cu.image))
+			ELSE NULL
+		 END AS profileImage
 		 ,cu.type AS profileType
 	FROM Board b
 			 LEFT JOIN CommunityUser cu
@@ -55,6 +61,11 @@
 			 ,bc.createdAt
 			 ,cu.nickName
 			 ,cu.userId
+			 ,CASE 
+				WHEN cu.image IS NOT NULL THEN CONCAT(IFNULL(cu.type, 'data:image/png;base64,'), TO_BASE64(cu.image))
+				ELSE NULL
+			 END AS profileImage
+			 ,cu.type AS profileType
 		FROM BoardComment bc
 				 LEFT JOIN CommunityUser cu
 						   ON bc.userId = cu.userId
