@@ -1,6 +1,6 @@
-# INSTALL 
+# INSTALL
 
-## docker 
+## docker
 
 ### Download
 
@@ -25,6 +25,7 @@ spring.datasource.password=디비패스워드
 ```
 
 ### Run
+
 ```
 ./gradlew clean && ./gradlew build
 java -jar ./build/libs/KaistSampleAPIServer06-0.0.1-SNAPSHOT.jar
