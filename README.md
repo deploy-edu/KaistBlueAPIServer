@@ -34,4 +34,10 @@ java -jar ./build/libs/KaistSampleAPIServer06-0.0.1-SNAPSHOT.jar
 
 서버 실행 후 관리자 계정으로 커뮤니티를 생성하려면 다음 가이드를 참고하세요:
 
-[커뮤니티 생성 가이드](./COMMUNITY_CREATION_README.md)
+[커뮤니티 생성 가이드](./docs/COMMUNITY_CREATION_README.md)
+
+## API 문서
+
+API 엔드포인트에 대한 상세한 정보는 다음 문서를 참고하세요:
+
+[API 문서](./docs/API_DOCUMENTATION.md)

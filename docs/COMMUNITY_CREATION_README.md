@@ -84,3 +84,4 @@ chmod +x create_communities.sh
 - 커뮤니티 생성은 관리자 권한(`ROLE_ADMIN`)이 필요합니다.
 - 각 커뮤니티는 `title`과 `summary` 필드만 포함합니다.
 - 이미지(`imageStr`)는 선택사항이며, 이 스크립트에서는 포함하지 않습니다.
+
