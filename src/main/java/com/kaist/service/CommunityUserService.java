@@ -87,8 +87,12 @@ public class CommunityUserService {
 		}else{
 			rMsg.setStatus(HttpStatus.OK);
 			//수정은 이미지, 또는 닉네임만
-			if(cu.getNickName() != null) findUser.setNickName(cu.getNickName());
-			if(cu.getImageStr() != null) findUser.setImageStr(cu.getImageStr());
+			if(cu.getNickName() != null && !cu.getNickName().isEmpty()) {
+				findUser.setNickName(cu.getNickName());
+			}
+			if(cu.getImageStr() != null && !cu.getImageStr().isEmpty()) {
+				findUser.setImageStr(cu.getImageStr());
+			}
 			CommunityUser result = communityUserImageSave(findUser);
 			rMsg.setMessage(result != null ? "정상처리 되었습니다." : "서버오류");
 			if(null!=result){
