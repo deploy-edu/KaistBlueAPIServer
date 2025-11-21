@@ -14,8 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.kaist.entity.Community;
 import com.kaist.entity.CommunityUser;
 import com.kaist.entity.User;
+import com.kaist.repository.CommunityRepository;
 import com.kaist.repository.CommunityUserRepository;
 import com.kaist.repository.UserRepository;
 
@@ -28,6 +30,9 @@ public class CommunityUserService {
 	
 	@Autowired
 	UserRepository  userRepo;
+
+	@Autowired
+	CommunityRepository communityRepo;
 
 	@Autowired
 	KaistMapper mapper;
@@ -60,6 +65,17 @@ public class CommunityUserService {
 		}else{
 			rMsg.setStatus(HttpStatus.OK);
 			CommunityUser result = communityUserImageSave(cu);
+			
+			// 커뮤니티 멤버 수 증가
+			if(null != result) {
+				Community community = communityRepo.findById(cu.getCommunityId()).orElse(null);
+				if(null != community) {
+					Long currentCount = community.getMemberCount() != null ? community.getMemberCount() : 0L;
+					community.setMemberCount(currentCount + 1);
+					communityRepo.save(community);
+				}
+			}
+			
 			rMsg.setMessage(result != null ? "정상처리 되었습니다." : "서버오류");
 			if(null!=result){
 				rMsg.setData(result);
@@ -117,6 +133,17 @@ public class CommunityUserService {
 		String userName = userDetails.getUsername();
 		User user = userRepo.findByUserId(userName);
 		cu.setUserId(user.getId());
+		
+		// 커뮤니티 멤버 수 감소
+		Community community = communityRepo.findById(cu.getCommunityId()).orElse(null);
+		if(null != community) {
+			Long currentCount = community.getMemberCount() != null ? community.getMemberCount() : 0L;
+			if(currentCount > 0) {
+				community.setMemberCount(currentCount - 1);
+				communityRepo.save(community);
+			}
+		}
+		
 		communityUserRepo.delete(cu);
 		HashMap<String, Long> param = new HashMap<>();
 		param.put("userId", user.getId());

@@ -20,6 +20,7 @@
 	    ,cu.nickName
 		,c.image
 		,c.type
+		,c.memberCount
 	FROM Community c 
 	LEFT OUTER JOIN CommunityUser cu 
 	ON c.id = cu.communityId 

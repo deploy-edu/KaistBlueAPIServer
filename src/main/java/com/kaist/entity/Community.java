@@ -53,6 +53,10 @@ public class Community {
 	@Column(name = "type")
 	private String type;
 	
+	@Column(name = "memberCount", nullable = false)
+	@ColumnDefault("0")
+	private Long memberCount;
+	
 	
 
 }
