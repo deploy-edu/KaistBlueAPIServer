@@ -29,3 +29,9 @@ spring.datasource.password=디비패스워드
 ./gradlew clean && ./gradlew build
 java -jar ./build/libs/KaistSampleAPIServer06-0.0.1-SNAPSHOT.jar
 ```
+
+## 커뮤니티 생성
+
+서버 실행 후 관리자 계정으로 커뮤니티를 생성하려면 다음 가이드를 참고하세요:
+
+[커뮤니티 생성 가이드](./COMMUNITY_CREATION_README.md)
